@@ -9,15 +9,17 @@ namespace GameOfLife
 {
     partial class Form1
     {
+        //Größe der Buttons
         private static int scale = 25;
+        //Anzahl der Buttons
         private static int quantity = 25;
-
+        //Wahrscheinlichkeit für lebende Zelle
         private static int probability = 30;
 
         private int zaehlerSpalte = 1;
         private int zaehlerZeile = 1;
 
-
+        
         private Button[,] buttons1 = new Button[quantity, quantity];
         private Button[,] buttons2 = new Button[quantity, quantity];
 
@@ -87,6 +89,9 @@ namespace GameOfLife
 
         }
 
+        /// <summary>
+        /// Erstellt die Buttons fürs erste Array und ruft die 2. Methode auf
+        /// </summary>
         private void AddButton1()
         {
             while (this.zaehlerZeile <= quantity)
@@ -123,6 +128,9 @@ namespace GameOfLife
             this.AddButton2();
         }
 
+        /// <summary>
+        /// Erstellt die Buttons fürs zweite Array
+        /// </summary>
         private void AddButton2()
         {
             while (this.zaehlerZeile <= quantity)
@@ -155,6 +163,11 @@ namespace GameOfLife
             }
         } 
 
+        /// <summary>
+        /// Ändert welches Array sichtbar ist
+        /// </summary>
+        /// <param name="but1">Array wird sichtbar</param>
+        /// <param name="but2">Array wird unsichtbar</param>
         private void ChangeVisibleButtons(Button[,] but1, Button[,] but2)
         {
             bool visible = true;
@@ -168,6 +181,11 @@ namespace GameOfLife
             }
         }
 
+        /// <summary>
+        /// Aufruf bei "Start" drücken. Ruft abhängig von den Parametern Methoden zum Zufallsgenerator, zur Statusüberprüfung und Sichtbarkeitswechsel
+        /// </summary>
+        /// <param name="next">true wenn 2.Array sichtbar, überprüft Satus und macht 1.Array sichtbar</param>
+        /// <param name="newRandom">wenn true wird das Array random neu befüllt</param>
         private void Next(bool next, bool newRandom)
         {
             if(next)
@@ -189,6 +207,12 @@ namespace GameOfLife
                 ChangeVisibleButtons(this.buttons1, this.buttons2);
             }
         }
+
+        /// <summary>
+        /// Ändert Abhängig von den Rückgabewert von der Methode NewStatus die Buttons im Array
+        /// </summary>
+        /// <param name="but1">Array das aktiv ist, Prüfwerte</param>
+        /// <param name="but2">Array das inaktiv ist, Buttonwerte werden geändert</param>
         private void ChangeStatus(Button[,] but1, Button[,] but2)
         {
             bool changer;
@@ -210,6 +234,13 @@ namespace GameOfLife
             }
         }
 
+        /// <summary>
+        /// Überprüft die NachbarButtons eines Buttons ob "Lebendig" und zählt die Anzahl
+        /// </summary>
+        /// <param name="actBut">Array des zu überprüfenden Arrays</param>
+        /// <param name="spalte">Spaltenindex des Prüfbuttons</param>
+        /// <param name="zeile">Zeilenindex des Prüfbuttons</param>
+        /// <returns>Anzal der "Lebendigen" Nachbarn</returns>
         private int CheckNeighbors(Button[,] actBut, int spalte, int zeile)
         {
             int checkZeile, checkSpalte;
@@ -258,6 +289,12 @@ namespace GameOfLife
             return counter;
         }
 
+        /// <summary>
+        /// Setzt abhänig von der Anzahl der "lebendigen" Nachbarn und des bisherigen Status, einen neuen Status
+        /// </summary>
+        /// <param name="counter">Anzahl der "lebendigen" Nachbarn</param>
+        /// <param name="status">Bisheriger Status des Prüfbuttons</param>
+        /// <returns>Neuer Status des Prüfbuttons</returns>
         private bool NewStatus(int counter, bool status)
         {
             if (status == true)
@@ -285,6 +322,10 @@ namespace GameOfLife
             return status;
         }
 
+        /// <summary>
+        /// Gibt den Buttons eines Arrays einen zufälligen Status
+        /// </summary>
+        /// <param name="btn">Array was Randomisiert werden soll</param>
         private void NewRandom(Button[,] btn)
         {
             Random rnd = new Random();
