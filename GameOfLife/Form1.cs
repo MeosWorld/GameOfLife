@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,8 +31,10 @@ namespace GameOfLife
             if (this.counter == 0)
             {
                 this.AddButton1();
-            }            
-            else if (this.counter % 2 == 0)
+                this.counter++;
+            }
+
+            if (this.counter % 2 == 0)
             {
                 this.Next(false, newRandom);
                 newRandom = false;
@@ -42,11 +45,13 @@ namespace GameOfLife
                 newRandom = false;
             }
             this.counter++;
+
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             newRandom = true;
+            this.counter = 1;
         }
     }
 }
