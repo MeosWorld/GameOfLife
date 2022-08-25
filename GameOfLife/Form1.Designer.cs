@@ -10,7 +10,7 @@ namespace GameOfLife
     partial class Form1
     {
         private static int scale = 25;
-        private static int quantity = 7;
+        private static int quantity = 25;
 
         private static int probability = 30;
 
