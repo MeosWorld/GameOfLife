@@ -167,12 +167,12 @@ namespace GameOfLife
             if(next)
             {
                 ChangeStatus(buttons1, buttons2);
-                ChangeVisibleButtons(buttons1,buttons2);
+                ChangeVisibleButtons(buttons2,buttons1);
             }
             else
             {
                 ChangeStatus(buttons2, buttons1);
-                ChangeVisibleButtons(buttons2, buttons1);
+                ChangeVisibleButtons(buttons1, buttons2);
             }
         }
         private void ChangeStatus(Button[,] but1, Button[,] but2)
@@ -196,7 +196,7 @@ namespace GameOfLife
             }
         }
 
-        private int CheckNeighbors(Button[,] actBut, int zeile, int spalte)
+        private int CheckNeighbors(Button[,] actBut, int spalte, int zeile)
         {
             int checkZeile, checkSpalte;
             int counter = 0;
@@ -273,9 +273,11 @@ namespace GameOfLife
 
         private void TestTest()
         {
+            buttons1[1, 0].BackColor = System.Drawing.SystemColors.WindowText;
+            buttons1[2, 1].BackColor = System.Drawing.SystemColors.WindowText;
+            buttons1[0, 2].BackColor = System.Drawing.SystemColors.WindowText;
+            buttons1[1, 2].BackColor = System.Drawing.SystemColors.WindowText;
             buttons1[2, 2].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[2, 3].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[2, 4].BackColor = System.Drawing.SystemColors.WindowText;
         }
 
         #endregion
