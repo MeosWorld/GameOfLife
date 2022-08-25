@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -8,6 +9,9 @@ namespace GameOfLife
     {
         private static int scale = 25;
         private static int quantity = 7;
+
+        private static int probability = 30;
+
         private int zaehlerSpalte = 1;
         private int zaehlerZeile = 1;
 
@@ -162,17 +166,25 @@ namespace GameOfLife
             }
         }
 
-        private void Next(bool next)
+        private void Next(bool next, bool newRandom)
         {
             if(next)
             {
-                ChangeStatus(buttons1, buttons2);
-                ChangeVisibleButtons(buttons2,buttons1);
+                if(newRandom)
+                {
+                    NewRandom(this.buttons1);
+                }
+                ChangeStatus(this.buttons1, this.buttons2);
+                ChangeVisibleButtons(this.buttons2,this.buttons1);
             }
             else
             {
-                ChangeStatus(buttons2, buttons1);
-                ChangeVisibleButtons(buttons1, buttons2);
+                if (newRandom)
+                {
+                    NewRandom(this.buttons2);
+                }
+                ChangeStatus(this.buttons2, this.buttons1);
+                ChangeVisibleButtons(this.buttons1, this.buttons2);
             }
         }
         private void ChangeStatus(Button[,] but1, Button[,] but2)
@@ -271,13 +283,30 @@ namespace GameOfLife
             return status;
         }
 
-        private void TestTest()
+        private void NewRandom(Button[,] btn)
         {
-            buttons1[1, 0].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[2, 1].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[0, 2].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[1, 2].BackColor = System.Drawing.SystemColors.WindowText;
-            buttons1[2, 2].BackColor = System.Drawing.SystemColors.WindowText;
+            Random rnd = new Random();
+            int pruefzahl;
+
+            foreach(Button button in btn)
+            {
+                pruefzahl = rnd.Next(1,100);
+
+                if(pruefzahl <= probability)
+                {
+                    button.BackColor = System.Drawing.SystemColors.WindowText;
+                }
+                else
+                {
+                    button.BackColor = System.Drawing.SystemColors.Window;
+                }
+            }
+
+            //buttons1[1, 0].BackColor = System.Drawing.SystemColors.WindowText;
+            //buttons1[2, 1].BackColor = System.Drawing.SystemColors.WindowText;
+            //buttons1[0, 2].BackColor = System.Drawing.SystemColors.WindowText;
+            //buttons1[1, 2].BackColor = System.Drawing.SystemColors.WindowText;
+            //buttons1[2, 2].BackColor = System.Drawing.SystemColors.WindowText;
         }
 
         #endregion

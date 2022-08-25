@@ -13,6 +13,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         private int counter = 0;
+        private bool newRandom = true;
 
         public Form1()
         {
@@ -32,18 +33,20 @@ namespace GameOfLife
             }            
             else if (this.counter % 2 == 0)
             {
-                this.Next(false);
+                this.Next(false, newRandom);
+                newRandom = false;
             }
             else
             {
-                this.Next(true);
+                this.Next(true, newRandom);
+                newRandom = false;
             }
             this.counter++;
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            this.TestTest();
+            newRandom = true;
         }
     }
 }
