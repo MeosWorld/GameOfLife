@@ -6,13 +6,14 @@ namespace GameOfLife
 {
     partial class Form1
     {
-        private int scale = 25;
+        private static int scale = 25;
+        private static int quantity = 7;
         private int zaehlerSpalte = 1;
         private int zaehlerZeile = 1;
 
 
-        private Button[,] buttons1 = new Button[25,25];
-        private Button[,] buttons2 = new Button[25, 25];
+        private Button[,] buttons1 = new Button[quantity, quantity];
+        private Button[,] buttons2 = new Button[quantity, quantity];
 
         /// <summary>
         /// Erforderliche Designervariable.
@@ -82,7 +83,7 @@ namespace GameOfLife
 
         private void AddButton1()
         {
-            while (this.zaehlerZeile <= scale)
+            while (this.zaehlerZeile <= quantity)
             {
                 this.button1 = new System.Windows.Forms.Button();
                 this.SuspendLayout();
@@ -94,13 +95,13 @@ namespace GameOfLife
                 this.button1.BackColor = System.Drawing.SystemColors.WindowText;
                 this.button1.Location = new System.Drawing.Point(scale * this.zaehlerSpalte, scale * this.zaehlerZeile);
                 this.button1.Name = "button1";
-                this.button1.Size = new System.Drawing.Size(scale, scale);
+                this.button1.Size = new System.Drawing.Size(25, 25);
                 this.button1.TabIndex = 0;
                 this.button1.UseVisualStyleBackColor = false;
 
                 this.buttons1[this.zaehlerSpalte - 1, this.zaehlerZeile - 1] = this.button1;
 
-                if (this.zaehlerSpalte == scale)
+                if (this.zaehlerSpalte == quantity)
                 {
                     this.zaehlerZeile++;
                     this.zaehlerSpalte = 1;
@@ -118,7 +119,7 @@ namespace GameOfLife
 
         private void AddButton2()
         {
-            while (this.zaehlerZeile <= scale)
+            while (this.zaehlerZeile <= quantity)
             {
                 this.button1 = new System.Windows.Forms.Button();
                 this.SuspendLayout();
@@ -136,7 +137,7 @@ namespace GameOfLife
 
                 this.buttons2[this.zaehlerSpalte - 1, this.zaehlerZeile - 1] = this.button1;
 
-                if (this.zaehlerSpalte == scale)
+                if (this.zaehlerSpalte == quantity)
                 {
                     this.zaehlerZeile++;
                     this.zaehlerSpalte = 1;
@@ -177,11 +178,11 @@ namespace GameOfLife
         private void ChangeStatus(Button[,] but1, Button[,] but2)
         {
             bool changer;
-            for(int i = 0; i < scale; i++)
+            for(int i = 0; i < quantity; i++)
             {
-                for(int j = 0; j < scale; j++)
+                for(int j = 0; j < quantity; j++)
                 {
-                    changer = NewStatus(CheckNeighbors(but1, i, j), but1[i, j].Visible);
+                    changer = NewStatus(CheckNeighbors(but1, i, j), but1[i, j].BackColor == System.Drawing.SystemColors.WindowText);
 
                     if(changer)
                     {
@@ -204,36 +205,39 @@ namespace GameOfLife
             {
                 for(int j = -1; j < 2; j++)
                 {
-                    #region CheckingEges
-                    if (spalte + i < 0)
+                    if (!(i == 0 && j == 0))
                     {
-                        checkSpalte = this.scale - 1;
-                    }
-                    else if(spalte + i > 24)
-                    {
-                        checkSpalte = 0;
-                    }
-                    else
-                    {
-                        checkSpalte = spalte + i;
-                    }
-                    if (zeile + j < 0)
-                    {
-                        checkZeile = this.scale - 1;
-                    }
-                    else if (zeile + j > 24)
-                    {
-                        checkZeile = 0;
-                    }
-                    else
-                    {
-                        checkZeile = zeile + j;
-                    }
-                    #endregion
+                        #region CheckingEdges
+                        if (spalte + i < 0)
+                        {
+                            checkSpalte = quantity - 1;
+                        }
+                        else if (spalte + i > quantity - 1)
+                        {
+                            checkSpalte = 0;
+                        }
+                        else
+                        {
+                            checkSpalte = spalte + i;
+                        }
+                        if (zeile + j < 0)
+                        {
+                            checkZeile = quantity - 1;
+                        }
+                        else if (zeile + j > quantity - 1)
+                        {
+                            checkZeile = 0;
+                        }
+                        else
+                        {
+                            checkZeile = zeile + j;
+                        }
+                        #endregion
 
-                    if (actBut[checkSpalte, checkZeile].Visible == true)
-                    {
-                        counter++;
+                        if (actBut[checkSpalte, checkZeile].BackColor == System.Drawing.SystemColors.WindowText)
+                        {
+                            counter++;
+                        }
                     }
                 }
             }
@@ -269,9 +273,9 @@ namespace GameOfLife
 
         private void TestTest()
         {
-            buttons1[2, 2].Visible = true;
-            buttons1[2, 3].Visible = true;
-            buttons1[2, 4].Visible = true;
+            buttons1[2, 2].BackColor = System.Drawing.SystemColors.WindowText;
+            buttons1[2, 3].BackColor = System.Drawing.SystemColors.WindowText;
+            buttons1[2, 4].BackColor = System.Drawing.SystemColors.WindowText;
         }
 
         #endregion
