@@ -41,7 +41,6 @@ namespace GameOfLife
             base.Dispose(disposing);
         }
 
-        #region Vom Windows Form-Designer generierter Code
 
         /// <summary>
         /// Erforderliche Methode für die Designerunterstützung.
@@ -352,7 +351,6 @@ namespace GameOfLife
             //buttons1[2, 2].BackColor = System.Drawing.SystemColors.WindowText;
         }
 
-        #endregion
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BtnStart;
